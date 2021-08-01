@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des categories!
+{% endblock %}
+
+{% block body %}
+	<div class="p-5">
+    {% for message in app.flashes('message') %}
+            <div class="col-xs4 " role="alert">
+                <div class="p-3 my-2 rounded-2 success">{{ message }}</div>
+            </div>
+        {% endfor %}
+		<h1>Gestion des categories</h1>
+        <a href="{{path('admin_categories_ajout')}}" class="btn blue">Ajouter une categorie</a>
+		<div class="responsive-table">
+			<table class="table striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Parent</th>
+						<th>Modifier</th>
+                        <th>Spprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for categorie in categories %}
+                    <tr>
+						<td>{{categorie.id}}</td>
+						<td>{{categorie.name}}</td>
+						<td>{{categorie.parent}}</td>
+						<td><a class="btn shadow-1 rounded-1 small blue uppercase" href="{{path('admin_categories_modifier',{id: categorie.id})}}">Modifier</a></td>
+                        <td>
+                            <a href="#" class="btn shadow-1 rounded-1 small red uppercase press modal-trigger" data-target="modal-delete" data-id="{{categorie.id}}" data-titre="{{categorie.name}} ">
+								supprimer
+							</a>
+                        </td>
+					</tr>
+                {% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+    {# modal delete #}
+    <div class="modal shadow-1 white falling" id="modal-delete" data-ax="modal">
+		<div class="modal-header">Supprimer une Categorie</div>
+
+		<div class="divider"></div>
+	    <div class="modal-content"></div> 
+		<div class="divider"></div>
+		<div class="modal-footer">
+			<div class="float-left">
+				<a href="" class="ml-auto btn shadow-1 rounded-1 small success ">Valider</a>
+			</div>
+			<div class="float-right">
+				<button data-target="modal-delete" class="fx-left ml-auto btn shadow-1 rounded-1 small red modal-trigger">Close</button>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        let supprimer = document.querySelectorAll(".modal-trigger")
+        for (let bouton of supprimer) 
+        {
+            bouton.addEventListener("click", function () 
+            {
+                document.querySelector(".modal-footer div a").href = `/admin/categories/supprimer/${
+                    this.dataset.id
+                }`
+                document.querySelector(".modal-content").innerText = `êtes-vous sûr de vouloir supprimer cette categorie "${
+                    this.dataset.titre
+                }"`
+            })
+        }
+    </script>
+{% endblock %}

@@ -1,18 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'users.html.twig' %}
 
 {% block title %}Ajouter une annonce!{% endblock %}
 
 {% block body %}
 <div class="p-5">
     <h1>Ajouter une Annonce</h1>
-    {{form_start(formAnnonces )}}
+    {{form_start(formAnnonces)}}
         {{form_row(formAnnonces.title,{'label':'Title','attr':{'placeholder': "titre ...", 'class': "form-control"}})}}
         {{form_row(formAnnonces.content,{'label':'Content','attr':{'placeholder': "Description de l'annonce  ...", 'class': "form-control"}})}}
         {{form_row(formAnnonces.categories,{'label':'Categorie','attr':{'class': "form-control"}})}}
+        <div class="form-file">
+            <label for="img" class="btn primary rounded-1 shadow-1">Image</label>
+            {{form_row(formAnnonces.images,{'id':'img'})}}
+            <div class="form-file-path"></div>
+        </div>
         
         <br>
         {{form_row(formAnnonces.Valider,{'attr':{'class': "btn shadow-1 rounded-1 green"}})}}
     {{form_end(formAnnonces)}}
+    
 </div>
 
 

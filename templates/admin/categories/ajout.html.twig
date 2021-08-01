@@ -7,6 +7,7 @@
     <h1>Ajouter une Categorie</h1>
     {{form_start(form)}}
         {{form_row(form.name,{'label':'Name','attr':{'placeholder': "Name catégorie ...", 'class': "form-control"}})}}
+        {{form_row(form.parent,{'label':'Parent','attr':{'class': "form-control"}})}}
         <br>
         {{form_row(form.Valider,{'attr':{'class': "btn shadow-1 rounded-1 green"}})}}
     {{form_end(form)}}
